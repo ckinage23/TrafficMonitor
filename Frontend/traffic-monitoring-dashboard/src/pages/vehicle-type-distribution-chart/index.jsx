@@ -43,7 +43,7 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                 }
             })
         }
-    },[countriesAllData, vehicleTypesOptions])
+    },[countriesAllData])
     useEffect(()=>{
         if(selectedCountry && vehicleTypesOptions)
         {
@@ -90,7 +90,7 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                     }
                 }})
         }
-    }, [vehicleTypesOptions, selectedCountry]);
+    }, [vehicleTypesOptions]);
     return (
         <div>
             <HighChartsComponent ref={vehicleChartRef} options={vehicleTypesOptions} />
