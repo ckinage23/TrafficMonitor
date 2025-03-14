@@ -46,4 +46,4 @@ EXPOSE 80
 
 WORKDIR /code/trafficmonitoringapp
 
-CMD ["gunicorn", "trafficmonitoringapp.trafficmonitoringapp.wsgi.application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "trafficmonitoringapp.wsgi:application", "--bind", "0.0.0.0:8000"]
