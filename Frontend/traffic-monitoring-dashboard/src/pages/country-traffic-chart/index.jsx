@@ -2,7 +2,8 @@ import HighChartsComponent from "../../components/HighChartsComponent";
 import {useEffect, useState, useRef} from "react";
 
 const getCountriesDataForChart = (data) => {
-    var result = data.map(el => {
+    var result = data.filter(country => country.name !== 'Global')
+        .map(el => {
         return {name: el.name, y: el.traffic_index, drilldown:el.name}
     })
     console.log(result)
@@ -56,6 +57,9 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
                         drilldown: (event) => {
                             console.log(event, countriesAllData.find(country => country.name === event.seriesOptions.id));
                             setSelectedCountry(countriesAllData.find(country => country.name === event.seriesOptions.id));
+                        },
+                        drillup: (event) => {
+                            setSelectedCountry(countriesAllData.find(country => country.name === "Global"))
                         }
 
                 }}})

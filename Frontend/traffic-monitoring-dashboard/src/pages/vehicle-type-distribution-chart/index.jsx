@@ -4,7 +4,7 @@ const getVehiclesForTopLevelChart = (data) => {
     var vehicleTypes = data.find(el => el.name === "Global").vehicle_types
     var result = vehicleTypes ? Object.entries(vehicleTypes).filter(([key,value]) => key !== 'total_vehicles')
         .map(([key, value]) => {
-        return {name:key, y:value}
+        return {name:key, y:value, drilldown:key}
     }) : []
     console.log(result)
     return result
@@ -45,52 +45,33 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
         }
     },[countriesAllData])
     useEffect(()=>{
-        if(selectedCountry && vehicleTypesOptions)
+        if(vehicleTypesOptions)
         {
             let chart = vehicleChartRef.current.chart;
-
-            const drilldownSeries = vehicleTypesOptions.drilldown.series.find(series => series.id === selectedCountry.name);
-            console.log(drilldownSeries)
-            chart.update({
-                chart: {
-                    type: 'pie'
-                },
-                series: [drilldownSeries]
-            });
+            if (selectedCountry) {
+                if(selectedCountry.name==='Global'){
+                    chart.update({
+                        chart: {
+                            type: 'pie'
+                        },
+                        series:[{
+                            type: 'pie',
+                            data: getVehiclesForTopLevelChart(countriesAllData)}]
+                    });
+                }else
+                {
+                    const drilldownSeries = vehicleTypesOptions.drilldown.series.find(series => series.id === selectedCountry.name);
+                    console.log(drilldownSeries, selectedCountry, vehicleTypesOptions.drilldown.series)
+                    chart.update({
+                        chart: {
+                            type: 'pie'
+                        },
+                        series: [drilldownSeries]
+                    });
+                }
+            }
         }
     },[selectedCountry,vehicleTypesOptions])
-    useEffect(() => {
-
-        if(vehicleTypesOptions?.drilldown && !vehicleTypesOptions?.chart?.events){
-
-            setVehicleTypesOptions({...vehicleTypesOptions,
-                chart:{
-                    type: 'pie',
-                    events: {
-                        drilldown: (event) => {
-                            console.log(vehicleChartRef,vehicleTypesOptions)
-                            let chart = vehicleChartRef.current.chart;
-                            // Find the drilldown series data
-
-                            const drilldownSeries = vehicleTypesOptions.drilldown.series.find(series => series.id === selectedCountry.name);
-
-                            chart.applyDrilldown({
-                                chart: {
-                                type: 'pie'
-                            },
-                                series: [drilldownSeries]
-                            });
-                        },
-                        drillup: () => {
-                                // Revert to the initial series
-                                this.chart.update({
-                                    series: vehicleTypesOptions.series
-                                });
-                            }
-                    }
-                }})
-        }
-    }, [vehicleTypesOptions]);
     return (
         <div>
             <HighChartsComponent ref={vehicleChartRef} options={vehicleTypesOptions} />
