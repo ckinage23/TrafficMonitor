@@ -8,6 +8,9 @@ from .serializers import CountrySerializer, CitySerializer, VehicleTypeSerialize
 from .models import Country, City, VehicleTypeDistribution
 # Create your views here.
 
+def index(request):
+    return render(request, 'index.html')
+
 @api_view(['GET'])
 def api_root(request):
     api_urls={

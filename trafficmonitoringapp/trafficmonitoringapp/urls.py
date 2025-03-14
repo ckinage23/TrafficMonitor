@@ -18,8 +18,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from trafficmonitoringapp import settings
-from trafficmonitoringapp.views import index
+from trafficmonitoringapp.api.views import index
+from trafficmonitoringapp.trafficmonitoringapp import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
