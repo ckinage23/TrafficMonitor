@@ -31,9 +31,9 @@ COPY ./trafficmonitoringapp /code/trafficmonitoringapp/
 RUN pip install -r ./requirements.txt
 
 #Copy the frontend build to the container
-COPY --from=build-stage /code/Frontend/traffic-monitoring-dashboard/build ../trafficmonitoringapp/static/
-COPY --from=build-stage /code/Frontend/traffic-monitoring-dashboard/build/static ../trafficmonitoringapp/static/
-COPY --from=build-stage /code/Frontend/traffic-monitoring-dashboard/build/index.html ../trafficmonitoringapp/trafficmonitoringapp/templates/index.html
+COPY --from=build-stage /code/Frontend/traffic-monitoring-dashboard/build /code/trafficmonitoringapp/static/
+COPY --from=build-stage /code/Frontend/traffic-monitoring-dashboard/build/static /code/trafficmonitoringapp/static/
+COPY --from=build-stage /code/Frontend/traffic-monitoring-dashboard/build/index.html /code/trafficmonitoringapp/trafficmonitoringapp/templates/index.html
 
 #Run Django Migration command
 RUN python ./trafficmonitoringapp/manage.py migrate
