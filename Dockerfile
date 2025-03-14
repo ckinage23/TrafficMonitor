@@ -25,7 +25,7 @@ WORKDIR /code
 #Copy Django project to the container
 COPY ./trafficmonitoringapp /code/trafficmonitoringapp/
 
-RUN pip install -r requirements.txt
+RUN pip install -r ./requirements.txt
 
 #Copy the frontend build to the container
 COPY --from=build-stage ./code/Frontend/traffic-monitoring-dashboard/build ../trafficmonitoringapp/static/
