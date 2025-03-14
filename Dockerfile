@@ -22,6 +22,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
+# Copy backend requirements file
+COPY ./requirements.txt /code/
+
 #Copy Django project to the container
 COPY ./trafficmonitoringapp /code/trafficmonitoringapp/
 
