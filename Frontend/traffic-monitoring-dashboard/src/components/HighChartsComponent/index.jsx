@@ -1,6 +1,5 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import drilldown from 'highcharts/modules/drilldown.js';
 
 const HighChartsComponent = ({chartType, options, ref}) => (
     <div>

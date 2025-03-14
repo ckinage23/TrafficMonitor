@@ -2,10 +2,10 @@ import HighChartsComponent from "../../components/HighChartsComponent";
 import {useEffect, useState, useRef} from "react";
 const getVehiclesForTopLevelChart = (data) => {
     var vehicleTypes = data.find(el => el.name === "Global").vehicle_types
-    var result = Object.entries(vehicleTypes).filter(([key,value]) => key !== 'total_vehicles')
+    var result = vehicleTypes ? Object.entries(vehicleTypes).filter(([key,value]) => key !== 'total_vehicles')
         .map(([key, value]) => {
         return {name:key, y:value}
-    })
+    }) : []
     console.log(result)
     return result
 }
@@ -43,7 +43,7 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                 }
             })
         }
-    },[countriesAllData])
+    },[countriesAllData, vehicleTypesOptions])
     useEffect(()=>{
         if(selectedCountry && vehicleTypesOptions)
         {
@@ -90,7 +90,7 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                     }
                 }})
         }
-    }, [vehicleTypesOptions]);
+    }, [vehicleTypesOptions, selectedCountry]);
     return (
         <div>
             <HighChartsComponent ref={vehicleChartRef} options={vehicleTypesOptions} />

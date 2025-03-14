@@ -14,8 +14,8 @@ const getCountries = async () => {
 function DashboardHome() {
     const {
         data: countries,
-        error: countriesError,
-        isLoading: countriesLoading,
+        // error: countriesError,
+        // isLoading: countriesLoading,
     } = useQuery("countriesData", getCountries);
     const [selectedCountry, setSelectedCountry] = useState()
     useEffect(() => {

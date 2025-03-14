@@ -12,6 +12,7 @@ class City(models.Model):
     name = models.CharField(max_length=100)
     average_travel_time_per_10km = models.IntegerField()
     congestion = models.CharField(max_length = 15)
+    traffic_index = models.IntegerField()
     def __str__(self):
         return self.name
 

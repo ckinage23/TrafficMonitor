@@ -1,5 +1,5 @@
 import HighChartsComponent from "../../components/HighChartsComponent";
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState} from "react";
 
 const getCountriesDataForChart = (data) => {
     var result = data.map(el => {
@@ -12,7 +12,7 @@ const getCitiesDataForDrilldownChart = (data) => {
     var result = data.map(el => {
         return {
              id: el.name, data: el.cities.map(city => {
-                return {name:city.name, y:city.average_travel_time_per_10km}
+                return {name:city.name, y:city.traffic_index}
             })
         }
     })
@@ -44,7 +44,7 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
             }
             })
         }
-    },[countriesAllData])
+    },[countriesAllData, countriesOptions])
 
     useEffect(() => {
         if(countriesOptions?.drilldown && !countriesOptions?.chart?.events){
@@ -60,7 +60,7 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
 
                 }}})
         }
-    }, [countriesOptions]);
+    }, [countriesOptions, countriesAllData, setSelectedCountry]);
     return (
         <div>
             <HighChartsComponent options={countriesOptions} />
