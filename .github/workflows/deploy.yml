@@ -24,8 +24,8 @@ jobs:
 
       - name: Build and push Docker image
         run : |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/TrafficMonitor:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/TrafficMonitor:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/trafficmonitor:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/trafficmonitor:latest
 
       - name: Setup SSH
         run: |
@@ -39,9 +39,9 @@ jobs:
         run: |
             ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
               docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-              docker pull ${{ secrets.DOCKER_USERNAME }}/TrafficMonitor:latest
-              docker stop TrafficMonitor || true
-              docker rm TrafficMonitor || true
-              docker run -d --name TrafficMonitor -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/TrafficMonitor:latest
+              docker pull ${{ secrets.DOCKER_USERNAME }}/trafficmonitor:latest
+              docker stop trafficmonitor || true
+              docker rm trafficmonitor || true
+              docker run -d --name trafficmonitor -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/trafficmonitor:latest
             EOF
             
