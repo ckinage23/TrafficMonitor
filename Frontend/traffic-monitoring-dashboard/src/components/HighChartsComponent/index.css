@@ -1,0 +1,45 @@
+
+.highcharts-title{
+    fill: white !important;
+    font-family: 'Raleway-SemiBold', serif;
+}
+
+/*.highcharts-data-label > *{*/
+/*    fill: #232388 !important;*/
+/*    color: #232388 !important;*/
+/*    font-family: 'Raleway-SemiBold', serif;*/
+/*    cursor: default;*/
+/*    text-decoration: none !important;*/
+/*    font-size: 1em !important;*/
+/*}*/
+.highcharts-data-label > *{
+    fill: white !important;
+    color: #232388 !important;
+    stroke-width: 1px;
+    font-family: 'Raleway-SemiBold', serif;
+    cursor: default;
+    text-decoration: none !important;
+    opacity: 0.7;
+}
+
+.highcharts-text-outline{
+    fill: black !important;
+    stroke: black !important;
+}
+
+.highcharts-point{
+    cursor: default !important;
+}
+
+.drilldown .highcharts-point{
+    cursor: pointer !important;
+}
+
+.highcharts-breadcrumbs-button > text{
+    fill: white !important;
+    color: white !important;
+}
+
+.highcharts-breadcrumbs-button:hover > rect{
+    fill: #808080 !important;
+}

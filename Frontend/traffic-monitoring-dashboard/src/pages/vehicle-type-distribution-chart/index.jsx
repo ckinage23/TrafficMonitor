@@ -1,10 +1,17 @@
 import HighChartsComponent from "../../components/HighChartsComponent";
 import {useEffect, useState, useRef} from "react";
+
+function convertToTitleCase(str) {
+    if (!str) {
+        return ""
+    }
+    return str.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+}
 const getVehiclesForTopLevelChart = (data) => {
     var vehicleTypes = data.find(el => el.name === "Global").vehicle_types
     var result = vehicleTypes ? Object.entries(vehicleTypes).filter(([key,value]) => key !== 'total_vehicles')
         .map(([key, value]) => {
-        return {name:key, y:value, drilldown:key}
+        return {name:convertToTitleCase(key), y:value, drilldown:key}
     }) : []
     console.log(result)
     return result
@@ -14,7 +21,7 @@ const getVehiclesForDrilldownChart = (data) => {
     var result = data.filter(el => el.name !== "Global")
         .map(v=>{return {id: v.name, data: v.vehicle_types ? Object.entries(v.vehicle_types).filter(([key,value]) => key !== 'total_vehicles')
                 .map(([key, value]) => {
-                    return {name:key, y:value}
+                    return {name:convertToTitleCase(key), y:value}
                 }) : []}})
     console.log(result)
     return result
@@ -32,8 +39,11 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
         if(countriesAllData && !vehicleTypesOptions.drilldown){
             setVehicleTypesOptions({...vehicleTypesOptions,
                 chart:{
-                    type: 'pie'
+                    type: 'pie',
+                    backgroundColor: "#242424",
+
                 },
+                colors: ["#232388", "#8d7eb7", "#e5e5e5", "#e69798", "#d43d51"],
                 series:[{
                     type: 'pie',
                     data: getVehiclesForTopLevelChart(countriesAllData)}],

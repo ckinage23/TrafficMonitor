@@ -13,7 +13,7 @@ const getCitiesDataForDrilldownChart = (data) => {
     var result = data.map(el => {
         return {
              id: el.name, data: el.cities.map(city => {
-                return {name:city.name, y:city.average_travel_time_per_10km}
+                return {name:city.name, y:city.traffic_index}
             })
         }
     })
@@ -35,12 +35,18 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
                 chart:{
                 type: 'pie'
                 },
+                colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
                 series:[{
                 type: 'pie',
+                    cursor: 'pointer',
+                    className: 'drilldown',
                 data: getCountriesDataForChart(countriesAllData)
             }],
             drilldown:{
                 type:'pie',
+                breadcrumbs: {
+                    format: '{level.name}'
+                },
                 series: getCitiesDataForDrilldownChart(countriesAllData)
             }
             })

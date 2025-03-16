@@ -3,6 +3,8 @@ import axios from "axios";
 import {useQuery} from "react-query";
 import {useEffect, useState} from "react";
 import VehicleTypeDistributionChart from "../vehicle-type-distribution-chart";
+import Grid from '@mui/material/Grid2';
+import Topbar from "../../components/topbar";
 
 const getCountries = async () => {
     const response = await axios.get(
@@ -22,10 +24,18 @@ function DashboardHome() {
         console.log(selectedCountry)
     }, [selectedCountry]);
     return (
-        <div>
-            <CountryWiseTrafficChart countriesAllData={countries} setSelectedCountry={setSelectedCountry}/>
-            <VehicleTypeDistributionChart countriesAllData={countries} selectedCountry={selectedCountry} />
-        </div>
+        <>
+
+            <Topbar/>
+            <Grid container>
+                <Grid item xs={6}>
+                    <CountryWiseTrafficChart countriesAllData={countries} setSelectedCountry={setSelectedCountry}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <VehicleTypeDistributionChart countriesAllData={countries} selectedCountry={selectedCountry} />
+                </Grid>
+            </Grid>
+            </>
     );
 }
 
