@@ -12,7 +12,7 @@ const getCountriesDataForChart = (data) => {
 const getCitiesDataForDrilldownChart = (data) => {
     var result = data.map(el => {
         return {
-             id: el.name, data: el.cities.map(city => {
+             id: el.name,  data: el.cities.map(city => {
                 return {name:city.name, y:city.traffic_index}
             })
         }
@@ -32,21 +32,21 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
         console.log(countriesAllData)
         if(countriesAllData && !countriesOptions.drilldown){
             setCountriesOptions({...countriesOptions,
-                chart:{
-                type: 'pie'
-                },
-                colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
-                series:[{
-                type: 'pie',
-                    cursor: 'pointer',
-                    className: 'drilldown',
-                data: getCountriesDataForChart(countriesAllData)
+            chart:{
+            type: 'pie',
+            },
+            colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
+            series:[{
+            type: 'pie',
+                cursor: 'pointer',
+                className: 'drilldown',
+            data: getCountriesDataForChart(countriesAllData)
             }],
+                caption:{
+                text: 'Click on any country to view city wise breakdown of traffic data'
+                },
             drilldown:{
                 type:'pie',
-                breadcrumbs: {
-                    format: '{level.name}'
-                },
                 series: getCitiesDataForDrilldownChart(countriesAllData)
             }
             })

@@ -46,6 +46,7 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                 colors: ["#232388", "#8d7eb7", "#e5e5e5", "#e69798", "#d43d51"],
                 series:[{
                     type: 'pie',
+                    name: 'Vehicle Type distibution(in %)',
                     data: getVehiclesForTopLevelChart(countriesAllData)}],
                 drilldown:{
                     type:'pie',
