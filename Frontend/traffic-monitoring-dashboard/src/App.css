@@ -1,10 +1,5 @@
 
 @font-face {
-  font-family: 'BigShoulders-Light';
-  src: local('BigShoulders'), url(./fonts/BigShoulders/BigShoulders_24pt-Thin.ttf) format('truetype');
-}
-
-@font-face {
   font-family: 'BigShoulders-SemiBold';
   src: local('BigShoulders'), url(./fonts/BigShoulders/BigShoulders_36pt-SemiBold.ttf) format('truetype');
 }
