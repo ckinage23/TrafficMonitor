@@ -12,8 +12,21 @@
 .App{
   background-color: #242424;
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 .MuiAppBar-root{
   background-color: #373737 !important;
+}
+
+.page-title{
+  color: white;
+}
+.page-header{
+  background-color: #242424;
+  padding: 20px;
+}
+.page-subtitle{
+  color: white;
+  opacity: 0.7;
 }

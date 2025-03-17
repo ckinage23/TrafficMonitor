@@ -8,7 +8,7 @@ const HighChartsComponent = ({chartType, options, ref}) => {
     const [optionsState, setOptionsState] = useState()
         useEffect(()=>{
             if(options?.series) setOptionsState({...options, chart:{...options.chart, backgroundColor: "#242424"},
-                plotOptions:{...options.plotOptions, pie:{...options.plotOptions?.pie, borderWidth:0},}})
+                plotOptions:{...options.plotOptions, pie:{...options.plotOptions?.pie, size:200, borderWidth:0},}})
         },[options])
             return (
     <div>

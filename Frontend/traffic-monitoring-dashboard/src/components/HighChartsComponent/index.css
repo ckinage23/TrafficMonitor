@@ -4,14 +4,6 @@
     font-family: 'Raleway-SemiBold', serif;
 }
 
-/*.highcharts-data-label > *{*/
-/*    fill: #232388 !important;*/
-/*    color: #232388 !important;*/
-/*    font-family: 'Raleway-SemiBold', serif;*/
-/*    cursor: default;*/
-/*    text-decoration: none !important;*/
-/*    font-size: 1em !important;*/
-/*}*/
 .highcharts-data-label > *{
     fill: white !important;
     color: #232388 !important;
@@ -42,4 +34,8 @@
 
 .highcharts-breadcrumbs-button:hover > rect{
     fill: #808080 !important;
+}
+
+.highcharts-plot-background{
+    height: 350vh;
 }

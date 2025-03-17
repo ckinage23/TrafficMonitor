@@ -30,7 +30,7 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
     const vehicleChartRef = useRef(null);
     const [vehicleTypesOptions, setVehicleTypesOptions] = useState( {
         title: {
-            text: 'Vehicle type distribution'
+            text: 'Vehicle type distribution at global level'
         }
     })
 
@@ -41,12 +41,15 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                 chart:{
                     type: 'pie',
                     backgroundColor: "#242424",
-
+                },
+                caption:{
+                    text: 'Distribution of the type of vehicles used contributing to overall traffic and congestion at a global level',
+                    align: 'center',
                 },
                 colors: ["#232388", "#8d7eb7", "#e5e5e5", "#e69798", "#d43d51"],
                 series:[{
                     type: 'pie',
-                    name: 'Vehicle Type distibution(in %)',
+                    name: 'Vehicle usage(in %)',
                     data: getVehiclesForTopLevelChart(countriesAllData)}],
                 drilldown:{
                     type:'pie',
@@ -65,6 +68,13 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                         chart: {
                             type: 'pie'
                         },
+                        title: {
+                            text: 'Vehicle type distribution at global level'
+                        },
+                        caption:{
+                            text: 'Distribution of the type of vehicles used contributing to overall traffic and congestion at a global level',
+                            align: 'center',
+                        },
                         series:[{
                             type: 'pie',
                             data: getVehiclesForTopLevelChart(countriesAllData)}]
@@ -76,6 +86,13 @@ function VehicleTypeDistributionChart({selectedCountry, countriesAllData}) {
                     chart.update({
                         chart: {
                             type: 'pie'
+                        },
+                        title: {
+                            text: 'Vehicle type distribution at country level'
+                        },
+                        caption:{
+                            text: 'Distribution of the type of vehicles used contributing to overall traffic and congestion at a country level',
+                            align: 'center',
                         },
                         series: [drilldownSeries]
                     });

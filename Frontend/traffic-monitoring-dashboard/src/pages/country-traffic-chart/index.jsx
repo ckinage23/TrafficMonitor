@@ -12,7 +12,7 @@ const getCountriesDataForChart = (data) => {
 const getCitiesDataForDrilldownChart = (data) => {
     var result = data.map(el => {
         return {
-             id: el.name,  data: el.cities.map(city => {
+             id: el.name, name:'Traffic index',  data: el.cities.map(city => {
                 return {name:city.name, y:city.traffic_index}
             })
         }
@@ -21,15 +21,17 @@ const getCitiesDataForDrilldownChart = (data) => {
     return result
 }
 
-function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
-
+const getBreadcrumbName = (levelName) =>{
+    return levelName === 'Traffic index' ? 'Global' : levelName
+}
+function CountryWiseTrafficChart({countriesAllData, setSelectedCountry, selectedCounty}) {
     const [countriesOptions, setCountriesOptions] = useState( {
         title: {
             text: 'Country wise traffic distribution'
         }
     })
+    const countriesChartef = useRef(null)
     useEffect(()=>{
-        console.log(countriesAllData)
         if(countriesAllData && !countriesOptions.drilldown){
             setCountriesOptions({...countriesOptions,
             chart:{
@@ -38,15 +40,23 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
             colors: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
             series:[{
             type: 'pie',
+                name:'Traffic index',
                 cursor: 'pointer',
                 className: 'drilldown',
             data: getCountriesDataForChart(countriesAllData)
             }],
                 caption:{
-                text: 'Click on any country to view city wise breakdown of traffic data'
+                    text: '<b>Traffic Index:</b> a composite measure that that considers factors such as commute time, dissatisfaction with time spent in traffic, CO2 emissions, and overall traffic system inefficiencies. It provides insights into the overall traffic conditions in a country.',
+                    align: 'center',
                 },
             drilldown:{
                 type:'pie',
+                breadcrumbs: {
+                    showFullPath: true,
+                    formatter: function (level) {
+                        console.log(level)
+                        return getBreadcrumbName(`${level.levelOptions.name}`);}
+                },
                 series: getCitiesDataForDrilldownChart(countriesAllData)
             }
             })
@@ -55,17 +65,38 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
 
     useEffect(() => {
         if(countriesOptions?.drilldown && !countriesOptions?.chart?.events){
-
             setCountriesOptions({...countriesOptions,
                 chart:{
                     type: 'pie',
                     events: {
                         drilldown: (event) => {
+                            let chart = countriesChartef.current.chart;
+
                             console.log(event, countriesAllData.find(country => country.name === event.seriesOptions.id));
                             setSelectedCountry(countriesAllData.find(country => country.name === event.seriesOptions.id));
+                            console.log(chart, countriesChartef)
+                            chart.update({
+                                title: {
+                                    text: 'City wise traffic distribution'
+                                },
+                                caption:{
+                                    text: '<b>Traffic Index:</b> a composite measure that that considers factors such as commute time, dissatisfaction with time spent in traffic, CO2 emissions, and overall traffic system inefficiencies. It provides insights into the overall traffic conditions in a city.',
+                                    align: 'center',
+                                },
+                            })
                         },
                         drillup: (event) => {
+                            let chart = countriesChartef.current.chart;
                             setSelectedCountry(countriesAllData.find(country => country.name === "Global"))
+                            chart.update({
+                                title: {
+                                    text: 'Country wise traffic distribution'
+                                },
+                                caption:{
+                                    text: '<b>Traffic Index:</b> a composite measure that that considers factors such as commute time, dissatisfaction with time spent in traffic, CO2 emissions, and overall traffic system inefficiencies. It provides insights into the overall traffic conditions in a country.',
+                                    align: 'center',
+                                },
+                            })
                         }
 
                 }}})
@@ -73,7 +104,7 @@ function CountryWiseTrafficChart({countriesAllData, setSelectedCountry}) {
     }, [countriesOptions]);
     return (
         <div>
-            <HighChartsComponent options={countriesOptions} />
+            <HighChartsComponent options={countriesOptions} ref={countriesChartef} />
         </div>
     );
 }
