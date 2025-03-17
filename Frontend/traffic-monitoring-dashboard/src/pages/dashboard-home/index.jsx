@@ -7,41 +7,28 @@ import Grid from '@mui/material/Grid2';
 import Topbar from "../../components/topbar";
 import Typography from "@mui/material/Typography";
 import './../../App.css';
+import {getCountries, getSubtitleText} from '../../utils/dashboard-home'
+import {IcecreamTwoTone} from "@mui/icons-material";
 
-const getCountries = async () => {
-    const response = await axios.get(
-        "/countries-all-data/",
-    );
-    return response.data;
-};
-
-const getSubtitleText = (selectedCountry) =>{
-    return  selectedCountry !== 'Global' ? 'Click on any country from the Country Wise chart below to view a breakdown of city wise traffic in that country, and to view vehicle type distribution at a country level'
-        : 'Click on Global to view traffic data and vehicle type distribution at a global level'
-}
 function DashboardHome() {
     const {
-        data: countries,
-        error: countriesError,
-        isLoading: countriesLoading,
+        data: countries
     } = useQuery("countriesData", getCountries);
     const [selectedCountry, setSelectedCountry] = useState()
-    useEffect(() => {
-        console.log(selectedCountry)
-    }, [selectedCountry]);
+
     return (
         <>
-            <Grid container direction={"column"} width={"100%"}>
+            <Grid container direction={"column"} width={"100%"} >
             <Topbar/>
-                <Grid container direction = {"column"} className={"page-header"}>
+                <Grid container direction = {"column"} className={"page-header"} >
                 <Typography className={"page-title"} variant={"h4"}>Traffic Stats 2025</Typography>
                 <Typography className={"page-subtitle"} variant={"subtitle2"}>{getSubtitleText(selectedCountry)}</Typography>
                 </Grid>
-                    <Grid container direction = {"row"}>
-                    <Grid item xs={6}>
+                    <Grid container direction = {"row"} spacing={2} rowSpacing={2} className={"container"}>
+                    <Grid size="auto">
                         <CountryWiseTrafficChart countriesAllData={countries} selectedCounty={selectedCountry} setSelectedCountry={setSelectedCountry}/>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid size="auto">
                         <VehicleTypeDistributionChart countriesAllData={countries} selectedCountry={selectedCountry} />
                     </Grid>
                 </Grid>

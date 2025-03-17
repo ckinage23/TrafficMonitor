@@ -9,12 +9,11 @@
   src: local('Raleway'), url(./fonts/Raleway/Raleway-SemiBold.ttf) format('truetype');
 }
 
-.App{
+.App, .container{
   background-color: #242424;
   min-height: 100vh;
   min-width: 100vw;
 }
-
 .MuiAppBar-root{
   background-color: #373737 !important;
 }
