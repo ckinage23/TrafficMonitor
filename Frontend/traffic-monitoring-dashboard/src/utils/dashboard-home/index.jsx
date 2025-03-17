@@ -8,7 +8,7 @@ export const getSubtitleText = (selectedCountry) =>{
 
 export const getCountries = async () => {
     const response = await axios.get(
-        "/countries-all-data/",
+        "/api/countries-all-data/",
     );
     return response.data;
 };

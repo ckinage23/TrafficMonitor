@@ -8,15 +8,24 @@ from .serializers import CountrySerializer, CitySerializer, VehicleTypeSerialize
 from .models import Country, City, VehicleTypeDistribution
 # Create your views here.
 
-def index(request):
-    return render(request, 'index.html')
 
 @api_view(['GET'])
 def api_root(request):
     api_urls={
-        'Country': '/countries-list/',
-        'Cities': '/cities-list/<str:pk>/',
-        'Vehicle Type Distribution': '/vehicle-type-distribution/<str:pk>'
+        'Application Main Page': '/',
+        'Country': 'api/countries-list/',
+        'Cities': 'api/cities-list/<str:pk>/',
+        'Vehicle Type Distribution': 'api/vehicle-type-distribution/<str:pk>',
+        'Countries All Data': 'api/countries-all-data',
+        'Add Country': 'api/add-country/',
+        'Add City': 'api/add-city/',
+        'Add Vehicle Type Distribution': 'api/add-vehicle-distribution/',
+        'Update Country': 'api/update-country/<str:pk>',
+        'Update City': 'api/update-city/<str:pk>',
+        'Update Vehicle Type Distribution': 'api/update-vehicle-distribution/<str:pk>',
+        'Delete Country': 'api/delete-country/<str:pk>',
+        'Delete City': 'api/delete-city/<str:pk>',
+        'Delete Vehicle Type Distribution': 'api/delete-vehicle-distribution/<str:pk>',
     }
     return Response(api_urls)
 

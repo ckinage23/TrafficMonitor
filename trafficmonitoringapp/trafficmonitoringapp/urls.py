@@ -18,17 +18,19 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-from api.views import index
+from .views import index
 import trafficmonitoringapp.settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api.urls')),
+    path('api/', include('api.urls')),
+    path('', index, name='index'),
+
 ]
 
 if trafficmonitoringapp.settings.DEBUG:
     urlpatterns+=static(trafficmonitoringapp.settings.STATIC_URL, document_root=trafficmonitoringapp.settings.STATIC_ROOT)
 
-urlpatterns += [
-    re_path(r'^(?:.*)/?$', index, name='index'),
-]
+# urlpatterns += [
+#     re_path(r'^(?:.*)/?$', index, name='index'),
+# ]

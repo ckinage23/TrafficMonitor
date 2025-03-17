@@ -14,7 +14,7 @@ class CitySerializer(serializers.ModelSerializer):
 class VehicleTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = VehicleTypeDistribution
-        fields = ('total_vehicles', 'car', 'trucks', 'buses', 'motorcycles', 'other')
+        fields = '__all__'
 
 class CountryNestedSerializer(serializers.ModelSerializer):
     cities = CitySerializer(many=True, read_only=True)
